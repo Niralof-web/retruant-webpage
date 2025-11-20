@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - TastyBites</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Global Styles */
+      :root {
+        --primary: #ff6b35;
+        --secondary: #f7931e;
+        --dark: #2d2d2d;
+        --light: #f8f8f8;
+        --success: #4caf50;
+        --danger: #f44336;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background: var(--secondary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      .btn-secondary {
+        background: var(--secondary);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Header Styles */
+      header {
+        background: white;
+        box-shadow: var(--shadow);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo i {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      nav a.active {
+        color: var(--primary);
+      }
+
+      nav a.active:after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .cart-icon {
+        position: relative;
+        font-size: 1.5rem;
+        color: var(--dark);
+        cursor: pointer;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--primary);
+        color: white;
+        font-size: 0.7rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .user-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--dark);
+      }
+
+      /* Auth Container */
+      .auth-container {
+        display: flex;
+        min-height: calc(100vh - 80px);
+      }
+
+      .auth-left {
+        flex: 1;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+
+      .auth-content {
+        max-width: 500px;
+        text-align: center;
+      }
+
+      .auth-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .auth-content p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 30px;
+      }
+
+      .auth-features {
+        text-align: left;
+        margin-top: 40px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .feature-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 107, 53, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+
+      .feature-text h4 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+      }
+
+      .feature-text p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin: 0;
+      }
+
+      .auth-right {
+        flex: 1;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+
+      .auth-form-container {
+        width: 100%;
+        max-width: 450px;
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .auth-header h1 {
+        font-size: 2.2rem;
+        color: var(--dark);
+        margin-bottom: 10px;
+      }
+
+      .auth-header p {
+        color: #666;
+      }
+
+      .auth-form {
+        background: white;
+        border-radius: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 14px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+      }
+
+      .form-control.error {
+        border-color: var(--danger);
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 42px;
+        background: none;
+        border: none;
+        color: #777;
+        cursor: pointer;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .password-strength {
+        height: 4px;
+        background: #e1e1e1;
+        border-radius: 2px;
+        margin-top: 5px;
+        overflow: hidden;
+      }
+
+      .strength-bar {
+        height: 100%;
+        width: 0%;
+        transition: all 0.3s ease;
+      }
+
+      .weak {
+        background: var(--danger);
+        width: 33%;
+      }
+      .medium {
+        background: #ffa502;
+        width: 66%;
+      }
+      .strong {
+        background: var(--success);
+        width: 100%;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .checkbox-group input {
+        margin-top: 3px;
+      }
+
+      .checkbox-group label {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+      }
+
+      .checkbox-group a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .checkbox-group a:hover {
+        text-decoration: underline;
+      }
+
+      .error-message {
+        color: var(--danger);
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .success-message {
+        color: var(--success);
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .form-footer {
+        margin-top: 25px;
+        text-align: center;
+      }
+
+      .form-footer p {
+        color: #666;
+        margin-top: 20px;
+      }
+
+      .form-footer a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .form-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 25px 0;
+      }
+
+      .divider:before,
+      .divider:after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #ddd;
+      }
+
+      .divider span {
+        padding: 0 15px;
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      .social-login {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+      }
+
+      .social-btn:hover {
+        background: #f9f9f9;
+        transform: translateY(-2px);
+      }
+
+      .social-btn.google {
+        color: #db4437;
+      }
+
+      .social-btn.facebook {
+        color: #4267b2;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 40px 0 20px;
+        margin-top: auto;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: var(--primary);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: #bbb;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #444;
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+
+      .social-links a:hover {
+        background: var(--primary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+        color: #bbb;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .auth-container {
+          flex-direction: column;
+        }
+
+        .auth-left {
+          padding: 60px 40px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header-container {
+          flex-wrap: wrap;
+        }
+
+        nav {
+          order: 3;
+          width: 100%;
+          margin-top: 15px;
+          display: none;
+        }
+
+        nav.active {
+          display: block;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .form-row,
+        .social-login {
+          grid-template-columns: 1fr;
+        }
+
+        .auth-left,
+        .auth-right {
+          padding: 40px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-utensils"></i>
+          <span>TastyBites</span>
+        </a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">3</span>
+          </div>
+          <div class="user-actions">
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="signup.html" class="btn">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+      <div class="auth-left">
+        <div class="auth-content">
+          <h2>Join the TastyBites Family</h2>
+          <p>
+            Create an account to enjoy exclusive deals, faster checkout, and
+            personalized recommendations.
+          </p>
+
+          <div class="auth-features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Fast Ordering</h4>
+                <p>Save your preferences for quicker checkout</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-tag"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Exclusive Deals</h4>
+                <p>Get member-only discounts and promotions</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-history"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Order History</h4>
+                <p>Easily reorder your favorite meals</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-right">
+        <div class="auth-form-container">
+          <div class="auth-header">
+            <h1>Create Account</h1>
+            <p>Join thousands of satisfied TastyBites customers</p>
+          </div>
+
+          <form class="auth-form" id="signupForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  class="form-control"
+                  placeholder="Enter your first name"
+                  required
+                />
+                <div class="error-message" id="firstNameError">
+                  Please enter a valid first name
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="form-control"
+                  placeholder="Enter your last name"
+                  required
+                />
+                <div class="error-message" id="lastNameError">
+                  Please enter a valid last name
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter your email"
+                required
+              />
+              <div class="error-message" id="emailError">
+                Please enter a valid email address
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                class="form-control"
+                placeholder="Enter your phone number"
+              />
+              <div class="error-message" id="phoneError">
+                Please enter a valid phone number
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Create a password"
+                required
+              />
+              <button type="button" class="password-toggle" id="passwordToggle">
+                <i class="fas fa-eye"></i>
+              </button>
+              <div class="password-strength">
+                <div class="strength-bar" id="passwordStrength"></div>
+              </div>
+              <div class="error-message" id="passwordError">
+                Password must be at least 8 characters with letters and numbers
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                class="form-control"
+                placeholder="Confirm your password"
+                required
+              />
+              <div class="error-message" id="confirmPasswordError">
+                Passwords do not match
+              </div>
+            </div>
+
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="newsletter"
+                name="newsletter"
+                checked
+              />
+              <label for="newsletter"
+                >Send me exclusive deals, new menu items, and cooking tips
+                (optional)</label
+              >
+            </div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="terms" name="terms" required />
+              <label for="terms"
+                >I agree to the <a href="#">Terms of Service</a> and
+                <a href="#">Privacy Policy</a></label
+              >
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%">
+              Create Account
+            </button>
+
+            <div class="success-message" id="successMessage">
+              Account created successfully! Redirecting...
+            </div>
+
+            <div class="divider">
+              <span>Or sign up with</span>
+            </div>
+
+            <div class="social-login">
+              <button type="button" class="social-btn google">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+              </button>
+              <button type="button" class="social-btn facebook">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+              </button>
+            </div>
+
+            <div class="form-footer">
+              <p>
+                Already have an account? <a href="login.html">Sign in here</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>TastyBites</h3>
+            <p>
+              Delivering delicious meals right to your doorstep. Quality
+              ingredients, authentic flavors, and exceptional service.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+              <li>
+                <i class="fas fa-map-marker-alt"></i> 123 Food Street, City,
+                State
+              </li>
+              <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+              <li><i class="fas fa-envelope"></i> info@tastybites.com</li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Newsletter</h3>
+            <p>Subscribe to our newsletter for updates and special offers.</p>
+            <form class="newsletter-form">
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Your email address"
+                />
+              </div>
+              <button type="submit" class="btn">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 TastyBites. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobile Menu Toggle
+      document
+        .querySelector(".mobile-menu-btn")
+        .addEventListener("click", function () {
+          document.querySelector("nav").classList.toggle("active");
+        });
+
+      // Password Toggle Visibility
+      const passwordToggle = document.getElementById("passwordToggle");
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirmPassword");
+
+      passwordToggle.addEventListener("click", function () {
+        const type =
+          passwordInput.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+        passwordInput.setAttribute("type", type);
+        confirmPasswordInput.setAttribute("type", type);
+
+        // Toggle eye icon
+        this.innerHTML =
+          type === "password"
+            ? '<i class="fas fa-eye"></i>'
+            : '<i class="fas fa-eye-slash"></i>';
+      });
+
+      // Real-time Password Strength Check
+      document
+        .getElementById("password")
+        .addEventListener("input", function () {
+          checkPasswordStrength(this.value);
+        });
+
+      function checkPasswordStrength(password) {
+        const strengthBar = document.getElementById("passwordStrength");
+        let strength = 0;
+
+        if (password.length >= 8) strength++;
+        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+        if (password.match(/\d/)) strength++;
+        if (password.match(/[^a-zA-Z\d]/)) strength++;
+
+        strengthBar.className = "strength-bar";
+        if (password.length > 0) {
+          if (strength <= 1) {
+            strengthBar.classList.add("weak");
+          } else if (strength <= 3) {
+            strengthBar.classList.add("medium");
+          } else {
+            strengthBar.classList.add("strong");
+          }
+        }
+      }
+
+      // Real-time Confirmation Password Check
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("input", function () {
+          const password = document.getElementById("password").value;
+          const confirmPassword = this.value;
+          const errorElement = document.getElementById("confirmPasswordError");
+
+          if (confirmPassword && password !== confirmPassword) {
+            errorElement.style.display = "block";
+            this.classList.add("error");
+          } else {
+            errorElement.style.display = "none";
+            this.classList.remove("error");
+          }
+        });
+
+      // Form Validation
+      // In the signup page, update the form submission to store users properly
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (validateForm()) {
+            // Get form data
+            const userData = {
+              firstName: document.getElementById("firstName").value.trim(),
+              lastName: document.getElementById("lastName").value.trim(),
+              email: document.getElementById("email").value.trim(),
+              phone: document.getElementById("phone").value.trim(),
+              password: document.getElementById("password").value,
+            };
+
+            // Get existing users from localStorage
+            const existingUsers = JSON.parse(
+              localStorage.getItem("tastybites_users") || "[]"
+            );
+
+            // Check if email already exists
+            if (existingUsers.some((user) => user.email === userData.email)) {
+              alert(
+                "An account with this email already exists. Please log in instead."
+              );
+              return;
+            }
+
+            // Add new user
+            existingUsers.push(userData);
+            localStorage.setItem(
+              "tastybites_users",
+              JSON.stringify(existingUsers)
+            );
+
+            // Auto-login the user after signup
+            localStorage.setItem("tastybites_logged_in", "true");
+            localStorage.setItem(
+              "tastybites_user",
+              JSON.stringify({
+                email: userData.email,
+                name: userData.firstName + " " + userData.lastName,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+              })
+            );
+
+            showSuccessMessage();
+          }
+        });
+
+      function validateForm() {
+        let isValid = true;
+
+        // Reset error messages
+        document.querySelectorAll(".error-message").forEach((msg) => {
+          msg.style.display = "none";
+        });
+
+        document.querySelectorAll(".form-control").forEach((input) => {
+          input.classList.remove("error");
+        });
+
+        // Validate first name
+        const firstName = document.getElementById("firstName").value.trim();
+        if (firstName.length < 2) {
+          document.getElementById("firstNameError").style.display = "block";
+          document.getElementById("firstName").classList.add("error");
+          isValid = false;
+        }
+
+        // Validate last name
+        const lastName = document.getElementById("lastName").value.trim();
+        if (lastName.length < 2) {
+          document.getElementById("lastNameError").style.display = "block";
+          document.getElementById("lastName").classList.add("error");
+          isValid = false;
+        }
+
+        // Validate email
+        const email = document.getElementById("email").value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          document.getElementById("emailError").style.display = "block";
+          document.getElementById("email").classList.add("error");
+          isValid = false;
+        }
+
+        // Validate phone (optional)
+        const phone = document.getElementById("phone").value.trim();
+        if (phone && !/^\d{10,15}$/.test(phone)) {
+          document.getElementById("phoneError").style.display = "block";
+          document.getElementById("phone").classList.add("error");
+          isValid = false;
+        }
+
+        // Validate password
+        const password = document.getElementById("password").value;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+        if (!passwordRegex.test(password)) {
+          document.getElementById("passwordError").style.display = "block";
+          document.getElementById("password").classList.add("error");
+          isValid = false;
+        }
+
+        // Validate confirm password
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        if (password !== confirmPassword) {
+          document.getElementById("confirmPasswordError").style.display =
+            "block";
+          document.getElementById("confirmPassword").classList.add("error");
+          isValid = false;
+        }
+
+        // Validate terms
+        if (!document.getElementById("terms").checked) {
+          alert("Please agree to the Terms of Service and Privacy Policy");
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      function showSuccessMessage() {
+        const successMessage = document.getElementById("successMessage");
+        successMessage.style.display = "block";
+
+        // Simulate redirect
+        setTimeout(() => {
+          // In a real application, you would redirect to the login page or dashboard
+          window.location.href = "login.html";
+        }, 2000);
+      }
+
+      // Social Login Buttons
+      document.querySelectorAll(".social-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const platform = this.classList.contains("google")
+            ? "Google"
+            : "Facebook";
+          alert(
+            `In a real application, this would redirect to ${platform} authentication`
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

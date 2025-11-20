@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu - TastyBites</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Global Styles */
+      :root {
+        --primary: #ff6b35;
+        --secondary: #f7931e;
+        --dark: #2d2d2d;
+        --light: #f8f8f8;
+        --success: #4caf50;
+        --danger: #f44336;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background: var(--secondary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      .btn-secondary {
+        background: var(--secondary);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2rem;
+        color: var(--dark);
+        position: relative;
+      }
+
+      .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 2px;
+      }
+
+      /* Header Styles */
+      header {
+        background: white;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo i {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      nav a.active {
+        color: var(--primary);
+      }
+
+      nav a.active:after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .cart-icon {
+        position: relative;
+        font-size: 1.5rem;
+        color: var(--dark);
+        cursor: pointer;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--primary);
+        color: white;
+        font-size: 0.7rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .user-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--dark);
+      }
+
+      /* Page Header */
+      .page-header {
+        background: var(--dark);
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+        opacity: 0.8;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Menu Categories */
+      .menu-categories {
+        padding: 30px 0;
+        background: white;
+        position: sticky;
+        top: 80px;
+        z-index: 90;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .categories-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .category-btn {
+        padding: 8px 20px;
+        background: #f5f5f5;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .category-btn.active,
+      .category-btn:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Menu Items */
+      .menu-section {
+        padding: 60px 0;
+      }
+
+      .category-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eee;
+        color: var(--dark);
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 50px;
+      }
+
+      .menu-item {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .menu-item-img {
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .menu-item-content {
+        padding: 20px;
+      }
+
+      .menu-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+      }
+
+      .menu-item-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-right: 10px;
+      }
+
+      .menu-item-price {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--primary);
+        white-space: nowrap;
+      }
+
+      .menu-item-description {
+        color: #666;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+      }
+
+      .menu-item-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .menu-item-rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #ffc107;
+      }
+
+      .add-to-cart {
+        background: var(--primary);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .add-to-cart:hover {
+        background: var(--secondary);
+      }
+
+      /* Special Badge */
+      .special-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--primary);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: var(--primary);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: #bbb;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #444;
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+
+      .social-links a:hover {
+        background: var(--primary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+        color: #bbb;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .header-container {
+          flex-wrap: wrap;
+        }
+
+        nav {
+          order: 3;
+          width: 100%;
+          margin-top: 15px;
+          display: none;
+        }
+
+        nav.active {
+          display: block;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .categories-nav {
+          justify-content: flex-start;
+          overflow-x: auto;
+          padding-bottom: 10px;
+        }
+
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-utensils"></i>
+          <span>TastyBites</span>
+        </a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="menu.html" class="active">Menu</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="user.html">user</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="cart-icon" id="cartIcon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+          <div class="user-actions">
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="signup.html" class="btn">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Our Delicious Menu</h1>
+        <p>
+          Explore our wide variety of mouth-watering dishes made with the
+          freshest ingredients and authentic flavors.
+        </p>
+      </div>
+    </section>
+
+    <!-- Menu Categories -->
+    <section class="menu-categories">
+      <div class="container">
+        <div class="categories-nav">
+          <button class="category-btn active" data-category="all">
+            All Items
+          </button>
+          <button class="category-btn" data-category="burgers">Burgers</button>
+          <button class="category-btn" data-category="shawarma">
+            Shawarma
+          </button>
+          <button class="category-btn" data-category="hotdogs">Hot Dogs</button>
+          <button class="category-btn" data-category="jollof">
+            Jollof Rice
+          </button>
+          <button class="category-btn" data-category="sides">Sides</button>
+          <button class="category-btn" data-category="desserts">
+            Desserts
+          </button>
+          <button class="category-btn" data-category="drinks">Drinks</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Items -->
+    <section class="menu-section">
+      <div class="container">
+        <!-- Burgers Category -->
+        <h2 class="category-title" id="burgers">Burgers</h2>
+        <div class="menu-grid">
+          <!-- Item 1 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Classic Beef Burger</h3>
+                <div class="menu-item-price">$12.99</div>
+              </div>
+              <p class="menu-item-description">
+                Juicy beef patty with lettuce, tomato, cheese, and our special
+                sauce.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">BBQ Bacon Burger</h3>
+                <div class="menu-item-price">$14.99</div>
+              </div>
+              <p class="menu-item-description">
+                Beef patty with crispy bacon, cheddar, onion rings, and BBQ
+                sauce.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Mushroom Swiss Burger</h3>
+                <div class="menu-item-price">$13.99</div>
+              </div>
+              <p class="menu-item-description">
+                Beef patty topped with sautéed mushrooms and melted Swiss
+                cheese.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Spicy Chicken Burger</h3>
+                <div class="menu-item-price">$11.99</div>
+              </div>
+              <p class="menu-item-description">
+                Crispy chicken fillet with spicy mayo, lettuce, and pickles.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1551615593-ef5fe247e8f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Double Cheeseburger</h3>
+                <div class="menu-item-price">$15.99</div>
+              </div>
+              <p class="menu-item-description">
+                Two beef patties with double cheese, pickles, onions, and
+                special sauce.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1525059696034-4967a7290045?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Veggie Burger</h3>
+                <div class="menu-item-price">$10.99</div>
+              </div>
+              <p class="menu-item-description">
+                Plant-based patty with avocado, tomato, lettuce, and vegan mayo.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.5</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1551615593-ef5fe247e8f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Turkey Burger</h3>
+                <div class="menu-item-price">$12.49</div>
+              </div>
+              <p class="menu-item-description">
+                Lean turkey patty with cranberry sauce, arugula, and brie
+                cheese.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.4</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 8 -->
+          <div class="menu-item" data-category="burgers">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Breakfast Burger</h3>
+                <div class="menu-item-price">$13.49</div>
+              </div>
+              <p class="menu-item-description">
+                Beef patty with fried egg, bacon, and hash browns on a brioche
+                bun.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shawarma Category -->
+        <h2 class="category-title" id="shawarma">Shawarma</h2>
+        <div class="menu-grid">
+          <!-- Item 9 -->
+          <div class="menu-item" data-category="shawarma">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Chicken Shawarma</h3>
+                <div class="menu-item-price">$10.99</div>
+              </div>
+              <p class="menu-item-description">
+                Marinated chicken with garlic sauce, pickles, and fries in a
+                wrap.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 10 -->
+          <div class="menu-item" data-category="shawarma">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1631452180519-c014fe946bc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Beef Shawarma</h3>
+                <div class="menu-item-price">$12.99</div>
+              </div>
+              <p class="menu-item-description">
+                Thinly sliced beef with tahini, vegetables, and pickles in pita
+                bread.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 11 -->
+          <div class="menu-item" data-category="shawarma">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1598214886806-c87b84b7078b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Mixed Shawarma Plate</h3>
+                <div class="menu-item-price">$15.99</div>
+              </div>
+              <p class="menu-item-description">
+                Combination of chicken and beef shawarma served with rice and
+                salad.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 12 -->
+          <div class="menu-item" data-category="shawarma">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1559305289-40cca95d6d02?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Falafel Shawarma</h3>
+                <div class="menu-item-price">$9.99</div>
+              </div>
+              <p class="menu-item-description">
+                Crispy falafel with hummus, vegetables, and tahini sauce in
+                pita.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 13 -->
+          <div class="menu-item" data-category="shawarma">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1563379091339-03246963d96f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Spicy Shawarma</h3>
+                <div class="menu-item-price">$11.99</div>
+              </div>
+              <p class="menu-item-description">
+                Chicken shawarma with extra spicy sauce and jalapeños.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 14 -->
+          <div class="menu-item" data-category="shawarma">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1563379091339-03246963d96f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Shawarma Bowl</h3>
+                <div class="menu-item-price">$13.99</div>
+              </div>
+              <p class="menu-item-description">
+                Deconstructed shawarma with rice, salad, and your choice of
+                protein.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hot Dogs Category -->
+        <h2 class="category-title" id="hotdogs">Hot Dogs</h2>
+        <div class="menu-grid">
+          <!-- Item 15 -->
+          <div class="menu-item" data-category="hotdogs">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Classic Hot Dog</h3>
+                <div class="menu-item-price">$6.99</div>
+              </div>
+              <p class="menu-item-description">
+                All-beef frankfurter with mustard, ketchup, and relish.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.5</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 16 -->
+          <div class="menu-item" data-category="hotdogs">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1588347818122-c6f4d1c73b0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Chicago Dog</h3>
+                <div class="menu-item-price">$8.99</div>
+              </div>
+              <p class="menu-item-description">
+                Topped with onions, relish, peppers, pickles, tomatoes, and
+                celery salt.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 17 -->
+          <div class="menu-item" data-category="hotdogs">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1548348864-9e0b3d91e849?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Chili Cheese Dog</h3>
+                <div class="menu-item-price">$9.99</div>
+              </div>
+              <p class="menu-item-description">
+                Loaded with homemade chili and melted cheddar cheese.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 18 -->
+          <div class="menu-item" data-category="hotdogs">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1588347818122-c6f4d1c73b0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Bacon Wrapped Dog</h3>
+                <div class="menu-item-price">$10.99</div>
+              </div>
+              <p class="menu-item-description">
+                Hot dog wrapped in bacon, topped with onions and peppers.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 19 -->
+          <div class="menu-item" data-category="hotdogs">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1548348864-9e0b3d91e849?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">New York Dog</h3>
+                <div class="menu-item-price">$7.99</div>
+              </div>
+              <p class="menu-item-description">
+                Topped with sauerkraut and spicy brown mustard.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jollof Rice Category -->
+        <h2 class="category-title" id="jollof">Jollof Rice</h2>
+        <div class="menu-grid">
+          <!-- Item 20 -->
+          <div class="menu-item" data-category="jollof">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Jollof Rice with Chicken</h3>
+                <div class="menu-item-price">$14.99</div>
+              </div>
+              <p class="menu-item-description">
+                Traditional West African rice with grilled chicken and
+                plantains.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 21 -->
+          <div class="menu-item" data-category="jollof">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Jollof Rice with Beef</h3>
+                <div class="menu-item-price">$15.99</div>
+              </div>
+              <p class="menu-item-description">
+                Flavorful jollof rice served with tender beef stew.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 22 -->
+          <div class="menu-item" data-category="jollof">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Vegetable Jollof Rice</h3>
+                <div class="menu-item-price">$12.99</div>
+              </div>
+              <p class="menu-item-description">
+                Jollof rice loaded with mixed vegetables, perfect for
+                vegetarians.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 23 -->
+          <div class="menu-item" data-category="jollof">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Party Jollof Rice</h3>
+                <div class="menu-item-price">$16.99</div>
+              </div>
+              <p class="menu-item-description">
+                Special smoked jollof rice with assorted meat and fish.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>5.0</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sides Category -->
+        <h2 class="category-title" id="sides">Sides</h2>
+        <div class="menu-grid">
+          <!-- Item 24 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">French Fries</h3>
+                <div class="menu-item-price">$4.99</div>
+              </div>
+              <p class="menu-item-description">
+                Crispy golden fries seasoned with our special spice blend.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 25 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Onion Rings</h3>
+                <div class="menu-item-price">$5.99</div>
+              </div>
+              <p class="menu-item-description">
+                Beer-battered onion rings served with dipping sauce.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 26 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Coleslaw</h3>
+                <div class="menu-item-price">$3.99</div>
+              </div>
+              <p class="menu-item-description">
+                Fresh cabbage and carrots in a creamy dressing.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.5</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 27 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1526234362653-3b75a0c07438?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Sweet Potato Fries</h3>
+                <div class="menu-item-price">$5.49</div>
+              </div>
+              <p class="menu-item-description">
+                Crispy sweet potato fries with a hint of cinnamon.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 28 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1599490659213-e2b9527bd087?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Mozzarella Sticks</h3>
+                <div class="menu-item-price">$6.99</div>
+              </div>
+              <p class="menu-item-description">
+                Breaded mozzarella sticks served with marinara sauce.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 29 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Garlic Bread</h3>
+                <div class="menu-item-price">$4.49</div>
+              </div>
+              <p class="menu-item-description">
+                Toasted bread with garlic butter and herbs.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 30 -->
+          <div class="menu-item" data-category="sides">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Side Salad</h3>
+                <div class="menu-item-price">$4.99</div>
+              </div>
+              <p class="menu-item-description">
+                Fresh mixed greens with tomatoes, cucumbers, and dressing.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.5</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desserts Category -->
+        <h2 class="category-title" id="desserts">Desserts</h2>
+        <div class="menu-grid">
+          <!-- Item 31 -->
+          <div class="menu-item" data-category="desserts">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Chocolate Brownie</h3>
+                <div class="menu-item-price">$6.99</div>
+              </div>
+              <p class="menu-item-description">
+                Rich, fudgy chocolate brownie with walnuts.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 32 -->
+          <div class="menu-item" data-category="desserts">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Cheesecake</h3>
+                <div class="menu-item-price">$7.99</div>
+              </div>
+              <p class="menu-item-description">
+                Creamy New York-style cheesecake with berry compote.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 33 -->
+          <div class="menu-item" data-category="desserts">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Ice Cream Sundae</h3>
+                <div class="menu-item-price">$5.99</div>
+              </div>
+              <p class="menu-item-description">
+                Vanilla ice cream with hot fudge, nuts, and a cherry.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 34 -->
+          <div class="menu-item" data-category="desserts">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Apple Pie</h3>
+                <div class="menu-item-price">$6.49</div>
+              </div>
+              <p class="menu-item-description">
+                Warm apple pie with cinnamon and a flaky crust.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 35 -->
+          <div class="menu-item" data-category="desserts">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Tiramisu</h3>
+                <div class="menu-item-price">$7.49</div>
+              </div>
+              <p class="menu-item-description">
+                Classic Italian dessert with coffee-soaked ladyfingers.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drinks Category -->
+        <h2 class="category-title" id="drinks">Drinks</h2>
+        <div class="menu-grid">
+          <!-- Item 36 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Soft Drinks</h3>
+                <div class="menu-item-price">$2.99</div>
+              </div>
+              <p class="menu-item-description">
+                Coke, Sprite, Fanta, or Dr. Pepper. Your choice.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.3</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 37 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1572119865084-43c285814d63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Fresh Lemonade</h3>
+                <div class="menu-item-price">$3.99</div>
+              </div>
+              <p class="menu-item-description">
+                Freshly squeezed lemons with a hint of mint.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 38 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Iced Tea</h3>
+                <div class="menu-item-price">$3.49</div>
+              </div>
+              <p class="menu-item-description">
+                Freshly brewed iced tea, sweetened or unsweetened.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.5</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 39 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1572119865084-43c285814d63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Fruit Smoothie</h3>
+                <div class="menu-item-price">$5.99</div>
+              </div>
+              <p class="menu-item-description">
+                Blend of fresh fruits, yogurt, and honey.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 40 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Milkshake</h3>
+                <div class="menu-item-price">$6.49</div>
+              </div>
+              <p class="menu-item-description">
+                Thick, creamy milkshake in chocolate, vanilla, or strawberry.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 41 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1572119865084-43c285814d63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Bottled Water</h3>
+                <div class="menu-item-price">$1.99</div>
+              </div>
+              <p class="menu-item-description">
+                Purified bottled water, still or sparkling.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.2</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 42 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Coffee</h3>
+                <div class="menu-item-price">$3.99</div>
+              </div>
+              <p class="menu-item-description">
+                Freshly brewed coffee, regular or decaf.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.6</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 43 -->
+          <div class="menu-item" data-category="drinks">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1572119865084-43c285814d63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Hot Chocolate</h3>
+                <div class="menu-item-price">$4.49</div>
+              </div>
+              <p class="menu-item-description">
+                Rich, creamy hot chocolate with whipped cream.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Items to reach 50 -->
+        <h2 class="category-title" id="specials">Specials</h2>
+        <div class="menu-grid">
+          <!-- Item 44 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Family Burger Meal</h3>
+                <div class="menu-item-price">$29.99</div>
+              </div>
+              <p class="menu-item-description">
+                4 burgers, 2 large fries, and 4 drinks. Perfect for sharing.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 45 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Shawarma Platter</h3>
+                <div class="menu-item-price">$24.99</div>
+              </div>
+              <p class="menu-item-description">
+                Mixed shawarma with rice, salad, hummus, and pita bread.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 46 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Hot Dog Combo</h3>
+                <div class="menu-item-price">$12.99</div>
+              </div>
+              <p class="menu-item-description">
+                2 hot dogs, fries, and 2 drinks. Great value meal.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 47 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Jollof Rice Feast</h3>
+                <div class="menu-item-price">$32.99</div>
+              </div>
+              <p class="menu-item-description">
+                Large portion of jollof rice with chicken, beef, and plantains.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 48 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Appetizer Sampler</h3>
+                <div class="menu-item-price">$18.99</div>
+              </div>
+              <p class="menu-item-description">
+                Mozzarella sticks, onion rings, fries, and wings.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.8</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 49 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Dessert Platter</h3>
+                <div class="menu-item-price">$22.99</div>
+              </div>
+              <p class="menu-item-description">
+                Assortment of brownies, cheesecake, and ice cream.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.9</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 50 -->
+          <div class="menu-item" data-category="specials">
+            <div
+              class="menu-item-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+              "
+            ></div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Drink Tower</h3>
+                <div class="menu-item-price">$19.99</div>
+              </div>
+              <p class="menu-item-description">
+                Large dispenser with your choice of soft drink or lemonade.
+              </p>
+              <div class="menu-item-footer">
+                <div class="menu-item-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4.7</span>
+                </div>
+                <button class="add-to-cart">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>TastyBites</h3>
+            <p>
+              Delivering delicious meals right to your doorstep. Quality
+              ingredients, authentic flavors, and exceptional service.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+              <li>
+                <i class="fas fa-map-marker-alt"></i> 123 Food Street, City,
+                State
+              </li>
+              <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+              <li><i class="fas fa-envelope"></i> info@tastybites.com</li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Newsletter</h3>
+            <p>Subscribe to our newsletter for updates and special offers.</p>
+            <form class="newsletter-form">
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Your email address"
+                />
+              </div>
+              <button type="submit" class="btn">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 TastyBites. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Add to Cart functionality for menu page
+      document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", function () {
+          const menuItem = this.closest(".menu-item");
+          const itemName =
+            menuItem.querySelector(".menu-item-title").textContent;
+          const itemPrice = parseFloat(
+            menuItem
+              .querySelector(".menu-item-price")
+              .textContent.replace("$", "")
+          );
+          const itemDescription = menuItem.querySelector(
+            ".menu-item-description"
+          ).textContent;
+          const itemImage = menuItem
+            .querySelector(".menu-item-img")
+            .style.backgroundImage.replace('url("', "")
+            .replace('")', "");
+
+            document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", function () {
+          const countElement = document.querySelector(".cart-count");
+          let count = parseInt(countElement.textContent);
+          countElement.textContent = count + 1;
+
+          // Create item object
+          const item = {
+            id: Date.now(), // Simple ID generation
+            name: itemName,
+            price: itemPrice,
+            description: itemDescription,
+            image: itemImage,
+          };
+
+          // Add to cart
+          if (addToCart(item)) {
+            // Show confirmation
+            alert(`${itemName} added to cart!`);
+          }
+        });
+      });
+
+      // Function to add item to cart (same as in cart page)
+      function addToCart(item) {
+        // Get current cart from localStorage
+        let cartItems =
+          JSON.parse(localStorage.getItem("tastybites_cart")) || [];
+
+        // Check if item already exists in cart
+        const existingItemIndex = cartItems.findIndex(
+          (cartItem) => cartItem.id === item.id
+        );
+
+        if (existingItemIndex !== -1) {
+          // Item exists, increase quantity
+          cartItems[existingItemIndex].quantity++;
+        } else {
+          // Item doesn't exist, add new item
+          cartItems.push({
+            ...item,
+            quantity: 1,
+          });
+        }
+
+        // Save to localStorage
+        localStorage.setItem("tastybites_cart", JSON.stringify(cartItems));
+
+        // Update cart count in header
+        updateCartCount();
+
+        return true;
+      }
+
+      // Update cart count in header
+      function updateCartCount() {
+        const cartItems =
+          JSON.parse(localStorage.getItem("tastybites_cart")) || [];
+        const totalItems = cartItems.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+
+        const cartCount = document.querySelector(".cart-count");
+        if (cartCount) {
+          cartCount.textContent = totalItems;
+        }
+      }
+
+      // Initialize cart count on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateCartCount();
+      });
+
+      // Mobile Menu Toggle
+      document
+        .querySelector(".mobile-menu-btn")
+        .addEventListener("click", function () {
+          document.querySelector("nav").classList.toggle("active");
+        });
+
+      // Add to Cart Functionality
+      document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", function () {
+          const countElement = document.querySelector(".cart-count");
+          let count = parseInt(countElement.textContent);
+          countElement.textContent = count + 1;
+
+          // Get the item name
+          const itemName =
+            this.closest(".menu-item").querySelector(
+              ".menu-item-title"
+            ).textContent;
+
+          // Show confirmation
+          alert(`${itemName} added to cart!`);
+        });
+      });
+
+      // Category Filtering
+      document.querySelectorAll(".category-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          // Update active button
+          document.querySelectorAll(".category-btn").forEach((btn) => {
+            btn.classList.remove("active");
+          });
+          this.classList.add("active");
+
+          const category = this.getAttribute("data-category");
+
+          // Show/hide items based on category
+          document.querySelectorAll(".menu-item").forEach((item) => {
+            if (
+              category === "all" ||
+              item.getAttribute("data-category") === category
+            ) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+          // Mobile Menu Toggle
+          document
+            .querySelector(".mobile-menu-btn")
+            .addEventListener("click", function () {
+              document.querySelector("nav").classList.toggle("active");
+            });
+
+          // Cart icon click handler - redirect to cart page
+          document
+            .getElementById("cartIcon")
+            .addEventListener("click", function () {
+              window.location.href = "cart.html";
+            });
+
+          // Scroll to the category section if not "all"
+          if (category !== "all") {
+            const categorySection = document.getElementById(category);
+            if (categorySection) {
+              window.scrollTo({
+                top: categorySection.offsetTop - 100,
+                behavior: "smooth",
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
